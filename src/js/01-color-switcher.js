@@ -30,7 +30,10 @@ function onBtnStopClick() {
 
 function onResetClick () {
     documentBody.style.backgroundColor = '#ffffff'
-} 
+    btnStop.removeAttribute('disabled');
+    clearInterval(startBtnIntervalId);
+}
+
 btnStart.addEventListener('click', onBtnStartClick);
 btnStop.addEventListener('click', onBtnStopClick);
 btnReset.addEventListener('click', onResetClick);
