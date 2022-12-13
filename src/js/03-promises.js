@@ -29,8 +29,8 @@ function onFormSubmit (e) {
   for (let i = 0; i < Number(amountInputRef.value); i += 1) {
   position += 1;
   delay += Number(stepInputRef.value);
-    createPromise(position, delay).then(({ position, delayStep }) => { Notify.success('great') }).catch(({ position, delay }) => {
-      Notify.failure('reject')
+    createPromise(position, delay).then(({ position, delay }) => { Notify.success(`Fulfilled promise ${position} in ${delay}`) }).catch(({ position, delay }) => {
+      Notify.failure(`Rejected promise ${position} in ${delay}`)
     })
     
 }
