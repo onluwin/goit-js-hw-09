@@ -1,6 +1,9 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 
+// import Notiflix from 'notiflix';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 const dataDays = document.querySelector('SPAN[data-days]');
 const dataHours = document.querySelector('SPAN[data-hours]');
 const dataMinutes = document.querySelector('SPAN[data-minutes]');
@@ -18,7 +21,7 @@ const options = {
         timerDate = selectedDates[0].getTime();
         if (timerDate < Date.now()) {
         startBtnRef.setAttribute('disabled', true)
-        alert('Please choose a date in the future')
+        Notify.failure('Please choose a date in the future')
         return;
         }
 
@@ -53,7 +56,7 @@ const timer = {
     timerIntervalId: null,
     
     start() {
-        
+        Notify.success('start');
         startBtnRef.setAttribute('disabled', true)
         this.timerIntervalId = setInterval(() => {
             
@@ -61,6 +64,7 @@ const timer = {
             const time = timerDate - startTime;
             if (time <= 0) {
                 clearInterval(this.timerIntervalId)
+                // startBtnRef.removeAttribute('disabled')
                 return;
             }
             updateClock(convertMs(time))
