@@ -4,14 +4,36 @@ const delayInputRef = document.querySelector('input[name="delay"]');
 const stepInputRef = document.querySelector('input[name="step"]');
 const amountInputRef = document.querySelector('input[name="amount"]');
 
-for (let i = 0; i < array.length; i += 1) {
-  createPromise()
-}
+let position = 0;
+
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
-  if (shouldResolve) {
-    // Fulfill
+  // console.log('position ->', position, 'delay ->', delay);
+  
+  return new Promise((resolve, reject) => {
+    const timerId = setTimeout(() => {
+      if (shouldResolve) {
+    resolve({position, delay})
   } else {
-    // Reject
+    reject({position, delay})
   }
+    }, delay);
+  })
 }
+
+function onFormSubmit (e) {
+  e.preventDefault();
+
+  let delayStep = Number(stepInputRef.value)
+  let delay = Number(delayInputRef.value) - delayStep;
+  for (let i = 0; i < Number(amountInputRef.value); i += 1) {
+  position += 1;
+  delay += Number(stepInputRef.value);
+    createPromise(position, delay).then(({ position, delayStep }) => { Notify.success('great') }).catch(({ position, delay }) => {
+      Notify.failure('reject')
+    })
+    
+}
+}
+
+formRef.addEventListener('submit', onFormSubmit)
